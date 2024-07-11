@@ -7,8 +7,6 @@ import subprocess
 #PAGES TO SCRAPE FOR ML PROJECT:
 # https://www.nike.com/w/mens-shoes-nik1zy7ok
 # https://www.nike.com/w/womens-shoes-5e1x6zy7ok
-# https://www.nike.com/w/mens-jordan-shoes-37eefznik1zy7ok
-# https://www.nike.com/w/womens-jordan-shoes-37eefz5e1x6zy7ok
 # https://www.nike.com/w/kids-shoes-v4dhzy7ok
 
 

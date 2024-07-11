@@ -140,9 +140,8 @@ profitable = sorted(profitable, key=lambda x: x[2], reverse=True)
 print(len(profitable))
 # Sort information based on second column ($ amount of profit)
 # Insert header for CSV file
-profitable.insert(0,
-                  ("SKU", "Name", "Profit ($)", "Profit (%)", "Retail Price ($)", "Resale Price ($)", "Year",
-                   "Nike Link", "Goat Link"))
+header = ("SKU", "Name", "Profit ($)", "Profit (%)", "Retail Price ($)", "Resale Price ($)", "Year",
+                   "Nike Link", "Goat Link")
 
 # Write list to CSV file and save
 file_exists = os.path.isfile('NikeParserResults.csv')
@@ -150,9 +149,11 @@ file_exists = os.path.isfile('NikeParserResults.csv')
 if overwrite_csv or not file_exists:
     with open('NikeParserResults.csv', 'w', newline='') as file:
         writer = csv.writer(file)
+        writer.writerow(header)
         writer.writerows(profitable)
 else:
     with open('NikeParserResults.csv', 'a', newline='') as file:
         writer = csv.writer(file)
-        if file_exists and os.path.getsize('NikeParserResults.csv') == 0:
-            writer.writerows(profitable)
+        if os.path.getsize('NikeParserResults.csv') == 0:
+            writer.writerow(header)
+        writer.writerows(profitable)
