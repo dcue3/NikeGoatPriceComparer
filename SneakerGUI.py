@@ -83,7 +83,7 @@ class SneakerScraperApp:
             messagebox.showerror("Error", "Failed to run parser: {e}")
 
     def load_csv(self): # Open CSV file created by NikeParser.py
-        file_path = "NikeParserResults.csv"
+        file_path = "NikeParserResultsTEMP.csv"
         try:
             df = pd.read_csv(file_path, dtype={'Year': str})
             self.process_data(df)

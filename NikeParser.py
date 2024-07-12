@@ -102,20 +102,17 @@ for product in product_prices:
         # Retrieve first products link
         resultOne = goat_soup.find_all('a', class_='GridCellLink__Link-sc-2zm517-0 VoJbO')[0]
         endLink = resultOne.get('href')
-        # Retrieve first products price
-        priceEl = goat_soup.find_all('span', class_='LocalizedCurrency__Amount-sc-yoa0om-0 jDDuev')[0]
-        priceProcessed = priceEl.get_text()[1:]
-        # Get sneaker name
-        snkrNamePre = goat_soup.find_all('div', class_='GridCellProductInfo__Name-sc-17lfnu8-3 iPovsV')[0]
-        snkrName = snkrNamePre.get_text()
-        # Get sneaker release year
         snkrYearPre = goat_soup.find_all('div', class_='GridCellProductInfo__Year-sc-17lfnu8-2 hyAqZs')[0]
         snkrYear = snkrYearPre.get_text()
         if len(snkrYear) > 4:
             snkrYear = "2024"
 
-        print(priceProcessed)
-        print(endLink)
+        driver.get(endLink)
+        goatpage_soup = BeautifulSoup(driver.page_source, 'html.parser')
+        priceProcessed = goatpage_soup.find_all('span', class_= 'LocalizedCurrency__Amount-sc-yoa0om-0 jDDuev SizeAndPrice__Price-sc-1w2dirf-2 dfmgGG')[9].get_text()[1:]
+        snkrName = goatpage_soup.find_all('h1',class_='ProductInfo__Name-sc-yvcr9v-2 bMmuxU')[1].get_text()
+
+
         if filter_profit and float(priceProcessed) * 0.905 <= float(product[1]):
             continue
         else:
