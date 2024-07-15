@@ -8,8 +8,7 @@ import subprocess
 # https://www.nike.com/w/mens-shoes-nik1zy7ok
 # https://www.nike.com/w/womens-shoes-5e1x6zy7ok
 # https://www.nike.com/w/kids-shoes-v4dhzy7ok
-
-
+# https://www.goat.com/brand/nike?web_groups=sneakers
 
 # Class contains implementation of program GUI, allows URL input and data display.
 class SneakerScraperApp:
@@ -24,10 +23,17 @@ class SneakerScraperApp:
 
     def create_widgets(self):
         # URL Entry
-        self.url_label = tk.Label(self.root, text="Enter Nike URL:")
+        self.url_label = tk.Label(self.root, text="Enter URL:")
         self.url_label.pack(pady=5)
         self.url_entry = tk.Entry(self.root, width=50)
         self.url_entry.pack(pady=5)
+
+        # Radio buttons to select parser
+        self.parser_var = tk.StringVar(value="Nike")
+        self.nike_radio = tk.Radiobutton(self.root, text="Nike Link", variable=self.parser_var, value="Nike")
+        self.goat_radio = tk.Radiobutton(self.root, text="Goat Link", variable=self.parser_var, value="Goat")
+        self.nike_radio.pack(pady=5)
+        self.goat_radio.pack(pady=5)
 
         # Filter profit checkbox
         self.filter_profit_var = tk.BooleanVar()
@@ -58,32 +64,36 @@ class SneakerScraperApp:
         self.tree.pack(pady=20)
         self.tree.bind("<ButtonRelease-1>", self.copy_to_clipboard)
 
-    def run_parser(self): # Pass URL and run NikeParser.py
+    def run_parser(self): # Pass URL and run appropriate parser script
         url = self.url_entry.get()
         filter_profit = self.filter_profit_var.get()
         overwrite_csv = self.overwrite_csv_var.get()
+        parser = self.parser_var.get()
 
         if not url:
             messagebox.showerror("Error", "Please enter a URL")
             return
 
+        # Select the appropriate parser script
+        script_name = "NikeParser.py" if parser == "Nike" else "GoatParser.py"
+
         # Build command with the provided options
-        command = ["python3", "NikeParser.py", url]
+        command = ["python3", script_name, url]
         if filter_profit:
             command.append("--filter-profit")
         if overwrite_csv:
             command.append("--overwrite-csv")
 
-        # Run the NikeParser.py script with the provided URL and options
+        # Run the selected parser script with the provided URL and options
         try:
             subprocess.run(command, check=True)
             messagebox.showinfo("Success", "Data obtained successfully. Now loading the results.")
             self.load_csv()  # Load the resulting CSV file
         except subprocess.CalledProcessError as e:
-            messagebox.showerror("Error", "Failed to run parser: {e}")
+            messagebox.showerror("Error", f"Failed to run parser: {e}")
 
-    def load_csv(self): # Open CSV file created by NikeParser.py
-        file_path = "NikeParserResultsTEMP.csv"
+    def load_csv(self): # Open CSV file created by parser script
+        file_path = "NikeParserResults.csv"  # Update the file path accordingly
         try:
             df = pd.read_csv(file_path, dtype={'Year': str})
             self.process_data(df)
