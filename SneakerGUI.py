@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import messagebox, ttk, filedialog
 import pandas as pd
 import subprocess
+import os
 
 # Class contains implementation of program GUI, allows URL input and data display.
 class SneakerScraperApp:
@@ -168,7 +169,15 @@ class SneakerScraperApp:
         self.sort_column = col
 
     def browse_file(self):
-        self.file_path = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
+        # Get the current directory of the script
+        project_directory = os.path.dirname(os.path.abspath(__file__))
+
+        # Open file dialog starting from the project directory
+        self.file_path = filedialog.askopenfilename(
+            initialdir=project_directory,
+            filetypes=[("CSV files", "*.csv")]
+        )
+
         self.file_label.config(text=f"Selected file: {self.file_path}")
 
     def train_model(self):
