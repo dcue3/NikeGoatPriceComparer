@@ -87,12 +87,12 @@ def scrape_sneaker_prices(goat_url, filter_profit, overwrite_csv):
     profitable = sorted(profitable, key=lambda x: x[2], reverse=True)
     header = ("SKU", "Name", "Profit ($)", "Profit (%)", "Retail Price ($)", "Resale Price ($)", "Year", "Nike Link", "Goat Link")
 
-    file_exists = os.path.isfile('NikeAndGoatResults.csv')
+    file_exists = os.path.isfile('NikeParserResults.csv')
     mode = 'w' if overwrite_csv or not file_exists else 'a'
 
-    with open('NikeAndGoatResults.csv', mode, newline='') as file:
+    with open('NikeParserResults.csv', mode, newline='') as file:
         writer = csv.writer(file)
-        if mode == 'w' or os.path.getsize('NikeAndGoatResults.csv') == 0:
+        if mode == 'w' or os.path.getsize('NikeParserResults.csv') == 0:
             writer.writerow(header)
         writer.writerows(profitable)
 
