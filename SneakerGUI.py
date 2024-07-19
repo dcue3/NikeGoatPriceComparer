@@ -201,7 +201,7 @@ class SneakerScraperApp:
             messagebox.showerror("Error", "Please enter valid numeric values for retail price and year")
             return
 
-        command = ["python3", "predict_resale.py", name, str(retail_price), str(year)]
+        command = ["python3", "PredictResale.py", name, str(retail_price), str(year)]
         try:
             result = subprocess.run(command, check=True, capture_output=True, text=True)
             self.prediction_label.config(text=result.stdout)
