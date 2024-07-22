@@ -7,6 +7,11 @@ from the Nike website and compares it with prices on the GOAT sneaker reselling 
 and the scikit-learn library to predict the resale price of a shoe based on its name, release year, and retail price. This is done using
 the Random Forest algorithm.
 
+**The most practically useful part of this project is the ability to filter sneakers by profitability.
+Any shoe that has a resale price greater than its retail minus the cost of selling fees on GOAT will be deemed profitable.
+If you choose to filter by this metric, you can easily find shoes that can be resold for profit.**
+
+
 ## Requirements
 - Python 3.7+
 
