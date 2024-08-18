@@ -1,4 +1,4 @@
-# Nike X Goat Price Comparison
+# Sneaker Forecast
 
 ## Overview
 This program consists of two main components: a sneaker pricing web scraper (`NikeParser.py`/`GoatParser.py`) and a machine 
