@@ -17,9 +17,9 @@ def scrape_sneaker_prices(nike_url, filter_profit, overwrite_csv):
         'Referer': 'https://www.google.com/',
         'Accept-Language': 'en-US,en;q=0.9',
     }
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    # driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     wait = WebDriverWait(driver, 10)
-    # driver = webdriver.Chrome()
     driver.get(nike_url)
     scroll_pause_time = 1
     last_height = driver.execute_script("return document.body.scrollHeight")
