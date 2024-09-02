@@ -1,4 +1,4 @@
-# Sneaker Forecast
+# Sneaker Resale Predictor
 
 ## Overview
 This program consists of two main components: a sneaker pricing web scraper (`NikeParser.py`/`GoatParser.py`) and a machine 
